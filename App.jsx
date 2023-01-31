@@ -1,18 +1,33 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import * as React from 'react';
+import {Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-const App = () => {
+function HomeScreen() {
   return (
-    <View>
-      <Text>
-        App
-        <Icon name="rocket" size={30} color="#900" />;
-      </Text>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Home!</Text>
     </View>
   );
-};
+}
 
-export default App;
+function SettingsScreen() {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
 
-const styles = StyleSheet.create({});
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
