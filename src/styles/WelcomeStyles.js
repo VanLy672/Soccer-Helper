@@ -5,14 +5,20 @@ export default WelcomeStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
   image: {
-    paddingTop: 110,
+    paddingTop: 100,
   },
   welcomeText: {
     fontFamily: 'segoepr',
     fontWeight: '600',
     fontSize: 25,
+  },
+  slogan: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sloganText: {
     fontFamily: 'segoepr',

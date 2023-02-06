@@ -11,7 +11,7 @@ const Welcome = () => {
       </View>
       <Text style={WelcomeStyles.welcomeText}>WELCOME TO</Text>
       <Text style={WelcomeStyles.welcomeText}>SOCCER HELPER</Text>
-      <View style={WelcomeStyles.container}>
+      <View style={WelcomeStyles.slogan}>
         <Text style={WelcomeStyles.sloganText}>Let's help you</Text>
         <Text style={WelcomeStyles.sloganTexts}>
           to have a nice football field
