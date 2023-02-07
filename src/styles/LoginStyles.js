@@ -36,10 +36,6 @@ export default LoginStyle = StyleSheet.create({
     fontSize: 10,
     left: '18%',
   },
-  slogan: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   text: {
     fontFamily: 'segoepr',
     fontSize: 10,
