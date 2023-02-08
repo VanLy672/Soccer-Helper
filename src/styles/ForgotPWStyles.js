@@ -40,9 +40,10 @@ export default ForgotPWStyles = StyleSheet.create({
     fontFamily: 'segoepr',
     fontSize: 10,
   },
-  registerText: {
+  forgotPWText: {
+    marginTop: 50,
     fontFamily: 'segoepr',
-    fontSize: 10,
+    fontSize: 15,
     color: '#82CD47',
     textAlignVertical: 'center',
     textAlign: 'center',

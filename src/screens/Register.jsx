@@ -11,8 +11,10 @@ import RegisterStyles from '../styles/RegisterStyles';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
+import {useNavigation} from '@react-navigation/native';
 
 const Register = () => {
+  const navigation = useNavigation();
   return (
     <View style={RegisterStyles.container}>
       <View style={RegisterStyles.image}>
@@ -94,6 +96,9 @@ const Register = () => {
           <Image source={require('../assets/images/Facebook.png')} />
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={RegisterStyles.registerText}>back to Login</Text>
+      </TouchableOpacity>
     </View>
   );
 };

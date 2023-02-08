@@ -2,8 +2,10 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import WelcomeStyles from '../styles/WelcomeStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 const Welcome = () => {
+  const navigation = useNavigation();
   return (
     <View style={WelcomeStyles.container}>
       <View style={WelcomeStyles.image}>
@@ -17,7 +19,7 @@ const Welcome = () => {
           to have a nice football field
         </Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={WelcomeStyles.btnStarted}>
           Get started <Icon name="arrowright" size={16} color="#ffffff" />
         </Text>

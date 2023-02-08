@@ -33,19 +33,20 @@ export default RegisterStyles = StyleSheet.create({
   },
   registerWithSocial: {
     flexDirection: 'row',
-    marginBottom: 65,
+    marginBottom: 20,
   },
   text: {
     fontFamily: 'segoepr',
     fontSize: 10,
-    marginBottom: 30,
+    // marginBottom: 30,
   },
   registerText: {
     fontFamily: 'segoepr',
-    fontSize: 10,
+    fontSize: 15,
     color: '#82CD47',
     textAlignVertical: 'center',
     textAlign: 'center',
+    marginBottom: 25,
   },
   btnRegister: {
     margin: 15,

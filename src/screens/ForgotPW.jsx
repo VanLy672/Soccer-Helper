@@ -10,8 +10,10 @@ import React from 'react';
 import ForgotPWStyles from '../styles/ForgotPWStyles';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
 const ForgotPW = () => {
+  const navigation = useNavigation();
   return (
     <View style={ForgotPWStyles.container}>
       <View style={ForgotPWStyles.image}>
@@ -43,20 +45,13 @@ const ForgotPW = () => {
         />
       </View>
       <TouchableOpacity>
-        <Text style={ForgotPWStyles.btnForgotPW}>Forgot your password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
         <Text style={ForgotPWStyles.btnResetPW}>
           Reset password
           <IconAntDesign name="arrowright" size={16} color="#ffffff" />
         </Text>
       </TouchableOpacity>
-      <Text style={ForgotPWStyles.text}>or</Text>
-      <TouchableOpacity>
-        <Text style={ForgotPWStyles.registerText}>Signup with us</Text>
-        <Text style={ForgotPWStyles.registerText}>
-          if you haven’t had an account yet.
-        </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={ForgotPWStyles.forgotPWText}>back to Login</Text>
       </TouchableOpacity>
       <View style={ForgotPWStyles.image}>
         <Image source={require('../assets/images/FooterImage.png')} />

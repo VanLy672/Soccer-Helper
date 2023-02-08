@@ -3,8 +3,10 @@ import React from "react";
 import LoginStyles from "../styles/LoginStyles";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
+  const navigation = useNavigation();
   return (
     <View style={LoginStyles.container}>
       <View style={LoginStyles.image}>
@@ -35,7 +37,7 @@ const Login = () => {
           placeholder="Enter your password..."
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPW')}>
         <Text style={LoginStyles.btnForgotPW}>Forgot your password?</Text>
       </TouchableOpacity>
       <TouchableOpacity>
@@ -49,7 +51,7 @@ const Login = () => {
         </Text>
       </TouchableOpacity>
       <Text style={LoginStyles.text}>or</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
         <Text style={LoginStyles.registerText}>Signup with us</Text>
         <Text style={LoginStyles.registerText}>
           if you haven’t had an account yet.
