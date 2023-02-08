@@ -3,11 +3,12 @@ import React from "react";
 import Welcome from './src/screens/Welcome';
 import Login from "./src/screens/Login";
 import Register from "./src/screens/Register";
+import ForgotPW from "./src/screens/ForgotPW";
 
 const App = () => {
   return (
     <View>
-      <Register />
+      <ForgotPW />
     </View>
   );
 };
