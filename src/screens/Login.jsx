@@ -42,7 +42,6 @@ const Login = () => {
         <Text style={LoginStyles.btnLogin}>
           Login
           <IconAntDesign
-            style={{left: '15%'}}
             name="arrowright"
             size={16}
             color="#ffffff"

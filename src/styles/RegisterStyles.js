@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export default LoginStyles = StyleSheet.create({
+export default RegisterStyles = StyleSheet.create({
   container: {
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
@@ -8,7 +8,9 @@ export default LoginStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  loginTitle: {
+  image: {
+  },
+  registerTitle: {
     fontFamily: 'segoepr',
     fontWeight: '600',
     color: '#82CD47',
@@ -30,15 +32,14 @@ export default LoginStyles = StyleSheet.create({
     fontFamily: 'segoepr',
     fontSize: 12,
   },
-  btnForgotPW: {
-    marginTop: 10,
-    fontFamily: 'segoepr',
-    fontSize: 10,
-    left: '18%',
+  registerWithSocial: {
+    flexDirection: 'row',
+    marginBottom: 65
   },
   text: {
     fontFamily: 'segoepr',
     fontSize: 10,
+    marginBottom: 30,
   },
   registerText: {
     fontFamily: 'segoepr',
