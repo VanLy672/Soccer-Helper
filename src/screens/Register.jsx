@@ -80,7 +80,7 @@ const Register = () => {
         />
       </View>
       <TouchableOpacity>
-        <Text style={RegisterStyles.btnLogin}>
+        <Text style={RegisterStyles.btnRegister}>
           Register
           <IconAntDesign name="arrowright" size={16} color="#ffffff" />
         </Text>

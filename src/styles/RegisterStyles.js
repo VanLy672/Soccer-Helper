@@ -8,8 +8,7 @@ export default RegisterStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  image: {
-  },
+  image: {},
   registerTitle: {
     fontFamily: 'segoepr',
     fontWeight: '600',
@@ -34,7 +33,7 @@ export default RegisterStyles = StyleSheet.create({
   },
   registerWithSocial: {
     flexDirection: 'row',
-    marginBottom: 65
+    marginBottom: 65,
   },
   text: {
     fontFamily: 'segoepr',
@@ -48,7 +47,7 @@ export default RegisterStyles = StyleSheet.create({
     textAlignVertical: 'center',
     textAlign: 'center',
   },
-  btnLogin: {
+  btnRegister: {
     margin: 15,
     width: 120,
     height: 30,
