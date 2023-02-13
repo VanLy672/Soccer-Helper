@@ -5,15 +5,47 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import ForgotPWStyles from '../styles/ForgotPWStyles';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const ForgotPW = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const forgotPassword = async (email, password) => {
+    try {
+      const response = await axios.post(
+        `http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/fogotpassword`,
+        {
+          email,
+          newpassword: password,
+        },
+      );
+        console.log(response.data);
+        navigation.navigate('Login');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleForgotPW = async () => {
+    try {
+      await forgotPassword(email, password);
+      Alert.alert('Success', 'Your password has been updated.');
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
+
   return (
     <View style={ForgotPWStyles.container}>
       <View style={ForgotPWStyles.image}>
@@ -29,7 +61,9 @@ const ForgotPW = () => {
         />
         <TextInput
           style={ForgotPWStyles.textInput}
-          placeholder="Enter your phone-number..."
+          placeholder="Enter your email..."
+          value={email}
+          onChangeText={setEmail}
         />
       </View>
       <View style={ForgotPWStyles.formInput}>
@@ -41,10 +75,13 @@ const ForgotPW = () => {
         />
         <TextInput
           style={ForgotPWStyles.textInput}
-          placeholder="Enter your password..."
+          placeholder="Enter your new password..."
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleForgotPW}>
         <Text style={ForgotPWStyles.btnResetPW}>
           Reset password
           <IconAntDesign name="arrowright" size={16} color="#ffffff" />
