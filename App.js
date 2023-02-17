@@ -8,7 +8,7 @@ import Home from "./src/screens/Home";
 import AuthStack from "./src/navigations/Auth";
 
 const App = () => {
-  return <Home />;
+  return <AuthStack />;
 };
 
 export default App;

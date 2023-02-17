@@ -6,8 +6,7 @@ import Welcome from '../screens/Welcome';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import ForgotPW from '../screens/ForgotPW';
-import Home from '../screens/Home';
-
+import BottomTabNavigator from './BottomTabNavigator';
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
@@ -18,7 +17,7 @@ const AuthStack = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ForgotPW" component={ForgotPW} />
-        <Stack.Screen name="HomePage" component={Home} />
+        <Stack.Screen name="HomePage" component={BottomTabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

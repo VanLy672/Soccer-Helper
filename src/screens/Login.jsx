@@ -31,9 +31,7 @@ const Login = () => {
       );
       const user = response.data;
       await AsyncStorage.setItem('user', JSON.stringify(user));
-      console.log(user);
       navigation.navigate('HomePage');
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
