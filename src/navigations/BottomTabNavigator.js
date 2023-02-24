@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import Map from '../screens/Map';
+import PitchStack from './PitchStack';
 import Post from '../screens/Post';
 import Settings from '../screens/Settings';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -17,7 +17,7 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'Homes') {
               iconName = 'home';
             } else if (route.name === 'Map') {
               iconName = 'map';
@@ -29,13 +29,11 @@ const BottomTabNavigator = () => {
 
             return <IconFeather name={iconName} size={size} color={color} />;
           },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#82CD47',
-          inactiveTintColor: 'gray',
-        }}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Map" component={Map} />
+          tabBarActiveTintColor: '#82CD47',
+          tabBarInactiveTintColor: 'gray',
+        })}>
+        <Tab.Screen name="Homes" component={Home} />
+        <Tab.Screen name="Map" component={PitchStack} />
         <Tab.Screen name="Post" component={Post} />
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
