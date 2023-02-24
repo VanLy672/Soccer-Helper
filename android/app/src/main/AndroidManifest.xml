@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    
+    <application>
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCKs3eXQ3wiXgE_E9YKBqaLgC0Uf_bNk5o"/>
+    </application>
 
     <application
       android:name=".MainApplication"
