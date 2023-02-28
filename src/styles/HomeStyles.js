@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default LoginStyles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
@@ -13,6 +14,12 @@ export default LoginStyles = StyleSheet.create({
     borderBottomLeftRadius: 70,
   },
   imageHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: 'cover',
     marginTop: 95,
   },
   swiper: {
@@ -45,5 +52,26 @@ export default LoginStyles = StyleSheet.create({
   },
   bottom: {
     padding: 30
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    justifyContent: 'center',
+  },
+  text: {
+    marginTop: 20,
+    marginLeft: 30,
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textShadowColor: 'black',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
 });
