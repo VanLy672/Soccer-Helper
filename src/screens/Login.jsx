@@ -20,22 +20,41 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post(
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/login',
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //     );
+  //     navigation.navigate('Homes');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const handleLogin = () => {
+    axios
+      .post(
         'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/login',
         {
-          email,
-          password,
+          email: email,
+          password: password,
         },
-      );
-      const user = response.data;
-      await AsyncStorage.setItem('user', JSON.stringify(user));
-      navigation.navigate('HomePage');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      )
+      .then(function (response) {
+        console.log(response.data['data']);
+        AsyncStorage.setItem('User_id', response.data['data'][0].id.toString());
+        AsyncStorage.setItem('User_name', response.data['data'][0].fullName);
+        AsyncStorage.setItem('User_avatar', response.data['data'][0].avatar);
+        navigation.navigate('Homes');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };  
 
   return (
     <View style={LoginStyles.container}>
