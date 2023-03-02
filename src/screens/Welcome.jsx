@@ -1,10 +1,22 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import WelcomeStyles from '../styles/WelcomeStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Welcome = () => {
+
+  const [userId, setUserId] = useState();
+    useEffect(() => {
+      AsyncStorage.getItem('User_id').then(result => {
+        setUserId(result);
+      });
+    }, []);
+    const handleNavigate = () => {
+      if(userId != null) { navigation.navigate('Homes');} else( navigation.navigate('Login'))
+    }
+
   const navigation = useNavigation();
   return (
     <View style={WelcomeStyles.container}>
@@ -19,7 +31,7 @@ const Welcome = () => {
           to have a nice football field
         </Text>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity onPress={handleNavigate}>
         <Text style={WelcomeStyles.btnStarted}>
           Get started <Icon name="arrowright" size={16} color="#ffffff" />
         </Text>
