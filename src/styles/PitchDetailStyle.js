@@ -3,12 +3,13 @@ import {StyleSheet} from 'react-native';
 export default PitchDetailStyle = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
   },
   viewImage: {
     width: '100%',
-    paddingTop: 5,
     paddingBottom: 5,
+  },
+  detail: {
+    paddingHorizontal: 15,
   },
   iconDetail: {
     flexDirection: 'row',
@@ -47,5 +48,15 @@ export default PitchDetailStyle = StyleSheet.create({
     borderStyle: 'dashed',
     borderRadius: 1,
     borderColor: '#ccc',
+  },
+  buttonBack: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: '13%',
+    padding: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    margin: 7
   },
 });
