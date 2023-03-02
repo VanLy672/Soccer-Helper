@@ -6,6 +6,8 @@ import Register from "./src/screens/Register";
 import ForgotPW from "./src/screens/ForgotPW";
 import Home from "./src/screens/Home";
 import AuthStack from "./src/navigations/Auth";
+import Map from "./src/screens/Map"
+import PitchStack from "./src/navigations/PitchStack";
 
 const App = () => {
   return <AuthStack />;
