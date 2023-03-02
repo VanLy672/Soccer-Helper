@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LoadingStyle from '../styles/LoadingStyle';
+import LoadingStyles from '../styles/LoadingStyles';
 
 const Loading = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,14 +35,14 @@ const Loading = ({navigation}) => {
   }, []);
 
   return (
-    <View style={LoadingStyle.container}>
+    <View style={LoadingStyles.container}>
       <Image source={require('../assets/images/Logo2.png')} />
-      <View style={LoadingStyle.loadingEffect}>
+      <View style={LoadingStyles.loadingEffect}>
         <ActivityIndicator size="large" color="#82CD47" animating={isLoading} />
         {isLoading && (
-          <Text style={LoadingStyle.text}>
+          <Text style={LoadingStyles.text}>
             Loading
-            <Text style={LoadingStyle.dots}>{dots}</Text>
+            <Text style={LoadingStyles.dots}>{dots}</Text>
           </Text>
         )}
       </View>

@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, FlatList, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Button,
+  FlatList,
+  Alert,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker'
+import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import BookingStyles from '../styles/BookingStyles';
+
 export default function Booking({route}) {
   const [bookingDate, setBookingDate] = useState({
     value: new Date(),
-    isPicking: false
+    isPicking: false,
+  });
+  const [bookingHour, setBookingHour] = useState({
+    value: new Date(),
+    isPicking: false,
   });
   const [startTime, setStartTime] = useState('');
+  const [time, setTime] = useState('');
   const [quality, setQuality] = useState('');
   const [pitchs, setPitchs] = useState([]);
   const [contact, setContact] = useState('');
@@ -31,13 +47,15 @@ export default function Booking({route}) {
       });
   };
   const handleSubmit = () => {
+    const dayStart = startTime + ' ' + time;
+
     axios
       .post(
         'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/bookings',
         {
           user_id: user_id,
           pitch_id: pitch,
-          day: startTime,
+          day: dayStart,
           time: quality,
           contact: contact,
           description: description,
@@ -46,33 +64,16 @@ export default function Booking({route}) {
       )
       .then(function (response) {
         console.log(response.data['data']);
+        Alert.alert('Create Successfully');
+        setContact('');
+        setDescription('');
+        setStartTime('');
+        setTime('');
       })
       .catch(function (error) {
         console.log(error);
+        Alert.alert('Loi');
       });
-
-    setContact('');
-    setDescription('');
-    setStartTime('');
-    Alert.alert('Create Successfully');
-  };
-  const onChangeDate = date => {
-    setStartTime(
-      'Thứ' +
-        ' ' +
-        (date.getDay() + 1) +
-        ' ' +
-        date.getFullYear() +
-        '-' +
-        (date.getMonth() + 1) +
-        '-' +
-        date.getDate() +
-        ' ' +
-        date.getHours() +
-        ':' +
-        date.getMinutes(),
-    );
-    setBookingDate(date);
   };
   const navigation = useNavigation();
   useEffect(() => {
@@ -82,27 +83,60 @@ export default function Booking({route}) {
     });
   }, []);
   const onDateSelected = (e, date) => {
-    if (e.type === "set") {
+    if (e.type === 'set') {
       setBookingDate({
         value: date,
-        isPicking: false
-      })
+        isPicking: false,
+      });
+      setStartTime(
+        'Thứ' +
+          ' ' +
+          (date.getDay() + 1) +
+          ' ' +
+          date.getFullYear() +
+          '-' +
+          (date.getMonth() + 1) +
+          '-' +
+          date.getDate(),
+      );
+    } else {
+      setBookingDate({...bookingDate, isPicking: false});
+      setStartTime(
+        'Thứ' +
+          ' ' +
+          (date.getDay() + 1) +
+          ' ' +
+          date.getFullYear() +
+          '-' +
+          (date.getMonth() + 1) +
+          '-' +
+          date.getDate(),
+      );
     }
-    else  {
-      setBookingDate({...bookingDate, isPicking: false})
+  };
+  const onDateHourSelected = (e, date) => {
+    if (e.type === 'set') {
+      setBookingHour({
+        value: date,
+        isPicking: false,
+      });
+      setTime(date.getHours() + ': ' + date.getMinutes());
+    } else {
+      setBookingDate({...bookingHour, isPicking: false});
+      setTime(date.getHours() + ':' + date.getMinutes());
     }
-  }
-  console.log(pitchs);
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create Match</Text>
-      <TouchableOpacity onPress={() => setBookingDate({...bookingDate, isPicking: true})} style={{borderWidth: 1}}>
+    <View style={BookingStyles.container}>
+      <Text style={BookingStyles.title}>Create Match</Text>
+      <TouchableOpacity
+        onPress={() => setBookingDate({...bookingDate, isPicking: true})}
+        style={{borderWidth: 1}}>
         <Text>Pick the date</Text>
       </TouchableOpacity>
       {bookingDate.isPicking && (
         <DateTimePicker
           style={{width: 300}}
-          // date={bookingDate.value}
           mode="datetime"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
@@ -110,9 +144,27 @@ export default function Booking({route}) {
           value={bookingDate.value}
         />
       )}
-      <Text style={styles.input}>{bookingDate.value.toLocaleString()}</Text>
+
+      <Text style={BookingStyles.input}>{startTime}</Text>
+      <TouchableOpacity
+        onPress={() => setBookingHour({...bookingHour, isPicking: true})}
+        style={{borderWidth: 1}}>
+        <Text>Pick hours</Text>
+      </TouchableOpacity>
+
+      {bookingHour.isPicking && (
+        <DateTimePicker
+          style={{width: 50}}
+          mode="time"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          onChange={onDateHourSelected}
+          value={bookingHour.value}
+        />
+      )}
+      <Text style={BookingStyles.input}>{time}</Text>
       <Picker
-        style={styles.picker}
+        style={BookingStyles.picker}
         selectedValue={quality}
         onValueChange={(itemValue, itemIndex) => setQuality(itemValue)}>
         <Picker.Item label="60 phút" value="60" />
@@ -120,7 +172,7 @@ export default function Booking({route}) {
         <Picker.Item label="120 phút" value="120" />
       </Picker>
       <Picker
-        style={styles.picker}
+        style={BookingStyles.picker}
         selectedValue={pitch}
         onValueChange={(itemValue, itemIndex) => setPitch(itemValue)}>
         {pitchs.map(item => (
@@ -132,64 +184,21 @@ export default function Booking({route}) {
         ))}
       </Picker>
       <TextInput
-        style={styles.input}
+        style={BookingStyles.input}
         placeholder="Contact"
         value={contact}
         onChangeText={newText => setContact(newText)}
       />
       <TextInput
-        style={styles.input}
+        style={BookingStyles.input}
         placeholder="Description"
         value={description}
         onChangeText={newText => setDescription(newText)}
         multiline={true}
       />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
+      <TouchableOpacity style={BookingStyles.button} onPress={handleSubmit}>
+        <Text style={BookingStyles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 10,
-    width: '100%',
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  picker: {
-    width: 200,
-    height: 50,
-    paddingRight: 100,
-    boder: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    marginLeft: -150,
-  },
-});

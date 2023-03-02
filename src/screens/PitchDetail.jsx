@@ -6,7 +6,7 @@ import IconOcticons from 'react-native-vector-icons/Octicons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
-import PitchDetailStyle from '../styles/PitchDetailStyle';
+import PitchDetailStyles from '../styles/PitchDetailStyles';
 
 function DetailsScreen({route, navigation}) {
   const {id, image, namepitch, address, price, phonenumber} = route.params;
@@ -35,8 +35,8 @@ function DetailsScreen({route, navigation}) {
   console.log(reviewPitch);
 
   return (
-    <View style={PitchDetailStyle.container}>
-      <View style={PitchDetailStyle.viewImage}>
+    <View style={PitchDetailStyles.container}>
+      <View style={PitchDetailStyles.viewImage}>
         <Image
           source={{
             uri: image,
@@ -44,50 +44,50 @@ function DetailsScreen({route, navigation}) {
           style={{width: '100%', height: 190}}
         />
         <TouchableOpacity
-          style={PitchDetailStyle.buttonBack}
+          style={PitchDetailStyles.buttonBack}
           onPress={() => navigation.goBack()}>
           <IconIonicons name="arrow-back" size={27} color="#82CD47" />
         </TouchableOpacity>
       </View>
-      <View style={PitchDetailStyle.detail}>
-        <View style={PitchDetailStyle.iconDetail}>
-          <View style={PitchDetailStyle.icon}>
+      <View style={PitchDetailStyles.detail}>
+        <View style={PitchDetailStyles.iconDetail}>
+          <View style={PitchDetailStyles.icon}>
             <IconOcticons name="calendar" size={20} color="black" />
-            <Text style={PitchDetailStyle.text}>Book</Text>
+            <Text style={PitchDetailStyles.text}>Book</Text>
           </View>
-          <View style={PitchDetailStyle.icon}>
+          <View style={PitchDetailStyles.icon}>
             <IconOcticons name="location" size={20} color="black" />
-            <Text style={PitchDetailStyle.text}>Location</Text>
+            <Text style={PitchDetailStyles.text}>Location</Text>
           </View>
-          <View style={PitchDetailStyle.icon}>
+          <View style={PitchDetailStyles.icon}>
             <IconOcticons name="share-android" size={20} color="black" />
-            <Text style={PitchDetailStyle.text}>Share</Text>
+            <Text style={PitchDetailStyles.text}>Share</Text>
           </View>
-          <View style={PitchDetailStyle.icon}>
+          <View style={PitchDetailStyles.icon}>
             <IconOcticons name="report" size={20} color="black" />
-            <Text style={PitchDetailStyle.text}>Report</Text>
+            <Text style={PitchDetailStyles.text}>Report</Text>
           </View>
         </View>
-        <View style={PitchDetailStyle.dashed} />
+        <View style={PitchDetailStyles.dashed} />
         <View>
-          <Text style={PitchDetailStyle.textBold}>{namepitch}</Text>
-          <View style={PitchDetailStyle.infoPitch}>
+          <Text style={PitchDetailStyles.textBold}>{namepitch}</Text>
+          <View style={PitchDetailStyles.infoPitch}>
             <IconOcticons
-              style={PitchDetailStyle.iconInfo}
+              style={PitchDetailStyles.iconInfo}
               name="location"
               size={20}
               color="black"
             />
-            <Text style={PitchDetailStyle.text}>{address}</Text>
+            <Text style={PitchDetailStyles.text}>{address}</Text>
           </View>
-          <View style={PitchDetailStyle.infoPitch}>
+          <View style={PitchDetailStyles.infoPitch}>
             <IconFeather
-              style={PitchDetailStyle.iconInfo}
+              style={PitchDetailStyles.iconInfo}
               name="phone"
               size={20}
               color="black"
             />
-            <Text style={PitchDetailStyle.text}>{phonenumber} </Text>
+            <Text style={PitchDetailStyles.text}>{phonenumber} </Text>
             <Text
               style={{color: 'green', fontSize: 15}}
               onPress={() => {

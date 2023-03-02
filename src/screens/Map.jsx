@@ -10,6 +10,7 @@ import {FlatListSlider} from 'react-native-flatlist-slider';
 import Pitch from '../components/Pitch';
 import axios from 'axios';
 import MapView from 'react-native-maps';
+import MapStyles from '../styles/MapStyles';
 import {useNavigation} from '@react-navigation/native';
 const Pitchs = () => {
   const [pitchs, setPitch] = useState([]);
@@ -54,15 +55,15 @@ const Pitchs = () => {
 
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.container}>
-      <MapView style={styles.map} />
+    <SafeAreaView style={MapStyles.container}>
+      <MapView style={MapStyles.map} />
       <TextInput
-        style={styles.touchableOpacityContainer}
-        placeholder='Search Pitch'
+        style={MapStyles.touchableOpacityContainer}
+        placeholder="Search Pitch"
         onChangeText={newText => setTextSearch(newText)}
       />
       <FlatList
-        style={styles.pitchListContainer}
+        style={MapStyles.pitchListContainer}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={texSearch || pitchs}
@@ -83,39 +84,3 @@ const Pitchs = () => {
 };
 
 export default Pitchs;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  map: {
-    flex: 1,
-    width: '100%',
-  },
-  pitchListContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingVertical: 10,
-    margin: 20,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderColor: '#ccc',
-  },
-  touchableOpacityContainer: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    right: 10,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
-  input: {
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
-});
