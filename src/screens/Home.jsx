@@ -3,8 +3,13 @@ import React, {useState, useEffect} from 'react';
 import Swiper from 'react-native-swiper';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import HomeStyles from "../styles/HomeStyles";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
+
+  const [avatar, setAvatar] = useState(null );
+  const [username, setUsername] = useState();
+  const [userId, setUserId] = useState();
 
   const nearFields = [
     require('../assets/images/NearFootballFields1.png'),
@@ -24,6 +29,18 @@ const Home = () => {
     require('../assets/images/FootballShop3.png'),
   ];
 
+  useEffect(() => {
+    AsyncStorage.getItem('User_id').then(result => {
+      setUserId(result);
+    });
+    AsyncStorage.getItem('User_name').then(result => {
+      setUsername(result);
+    });
+    AsyncStorage.getItem('User_avatar').then(result => {
+      setAvatar(result);
+    });
+  }, []);
+
   return (
     <ScrollView>
       <View style={HomeStyles.container}>
@@ -32,6 +49,10 @@ const Home = () => {
             style={HomeStyles.imageHeader}
             source={require('../assets/images/HeaderHomepage.png')}
           />
+        </View>
+        <View style={HomeStyles.overlay}>
+          {avatar && <Image style={HomeStyles.avatar} source={{uri: avatar}} />}
+          <Text style={HomeStyles.text}>Hi, {username}</Text>
         </View>
         <View style={HomeStyles.Banner}>
           <View style={HomeStyles.BannerTitle}>
@@ -61,9 +82,7 @@ const Home = () => {
         </View>
         <View style={HomeStyles.Banner}>
           <View style={HomeStyles.BannerTitle}>
-            <Text style={HomeStyles.BannerText}>
-              Football tournaments
-            </Text>
+            <Text style={HomeStyles.BannerText}>Football tournaments</Text>
             <TouchableOpacity>
               <Text style={HomeStyles.BannerBtn}>
                 see more
@@ -89,9 +108,7 @@ const Home = () => {
         </View>
         <View style={HomeStyles.Banner}>
           <View style={HomeStyles.BannerTitle}>
-            <Text style={HomeStyles.BannerText}>
-              Football Shop
-            </Text>
+            <Text style={HomeStyles.BannerText}>Football Shop</Text>
             <TouchableOpacity>
               <Text style={HomeStyles.BannerBtn}>
                 see more
@@ -115,9 +132,7 @@ const Home = () => {
             ))}
           </Swiper>
         </View>
-        <View style={HomeStyles.bottom}>
-
-        </View>
+        <View style={HomeStyles.bottom}></View>
       </View>
     </ScrollView>
   );
