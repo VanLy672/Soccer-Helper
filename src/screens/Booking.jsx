@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import BookingStyles from '../styles/BookingStyles';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 
 export default function Booking({route}) {
   const [bookingDate, setBookingDate] = useState({
@@ -65,6 +66,7 @@ export default function Booking({route}) {
       .then(function (response) {
         console.log(response.data['data']);
         Alert.alert('Create Successfully');
+        navigation.navigate('AllMatch');
         setContact('');
         setDescription('');
         setStartTime('');
@@ -128,30 +130,32 @@ export default function Booking({route}) {
   };
   return (
     <View style={BookingStyles.container}>
+      <TouchableOpacity
+        style={BookingStyles.buttonBack}
+        onPress={() => navigation.goBack()}>
+        <IconIonicons name="arrow-back" size={27} color="white" />
+      </TouchableOpacity>
       <Text style={BookingStyles.title}>Create Match</Text>
       <TouchableOpacity
-        onPress={() => setBookingDate({...bookingDate, isPicking: true})}
-        style={{borderWidth: 1}}>
-        <Text>Pick the date</Text>
+        style={BookingStyles.input}
+        onPress={() => setBookingDate({...bookingDate, isPicking: true})}>
+        <Text>{startTime || 'Pick the date'}</Text>
       </TouchableOpacity>
       {bookingDate.isPicking && (
         <DateTimePicker
           style={{width: 300}}
-          mode="datetime"
+          mode="date"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           onChange={onDateSelected}
           value={bookingDate.value}
         />
       )}
-
-      <Text style={BookingStyles.input}>{startTime}</Text>
       <TouchableOpacity
         onPress={() => setBookingHour({...bookingHour, isPicking: true})}
-        style={{borderWidth: 1}}>
-        <Text>Pick hours</Text>
+        style={BookingStyles.input}>
+        <Text>{time || 'Pick hours'}</Text>
       </TouchableOpacity>
-
       {bookingHour.isPicking && (
         <DateTimePicker
           style={{width: 50}}
@@ -162,7 +166,6 @@ export default function Booking({route}) {
           value={bookingHour.value}
         />
       )}
-      <Text style={BookingStyles.input}>{time}</Text>
       <Picker
         style={BookingStyles.picker}
         selectedValue={quality}
@@ -187,6 +190,7 @@ export default function Booking({route}) {
         style={BookingStyles.input}
         placeholder="Contact"
         value={contact}
+        keyboardType="numeric"
         onChangeText={newText => setContact(newText)}
       />
       <TextInput
