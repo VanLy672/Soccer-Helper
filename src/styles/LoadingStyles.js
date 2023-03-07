@@ -11,6 +11,17 @@ export default LoadingStyles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'segoepr',
   },
+  imageContainer: {
+    padding: 20,
+    borderWidth: 0.5,
+    borderColor: '#82CD47',
+    borderRadius: 20,
+  },
+  image: {
+    borderWidth: 0.5,
+    borderColor: '#82CD47',
+    borderRadius: 17,
+  },
   loadingEffect: {
     top: 250,
   },

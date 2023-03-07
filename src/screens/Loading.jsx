@@ -36,7 +36,9 @@ const Loading = ({navigation}) => {
 
   return (
     <View style={LoadingStyles.container}>
-      <Image source={require('../assets/images/Logo2.png')} />
+      <View style={LoadingStyles.imageContainer}>
+        <Image style={LoadingStyles.image} source={require('../assets/images/Logo2.png')} />
+      </View>
       <View style={LoadingStyles.loadingEffect}>
         <ActivityIndicator size="large" color="#82CD47" animating={isLoading} />
         {isLoading && (
