@@ -49,6 +49,8 @@ const Login = () => {
         AsyncStorage.setItem('User_id', response.data['data'][0].id.toString());
         AsyncStorage.setItem('User_name', response.data['data'][0].fullName);
         AsyncStorage.setItem('User_avatar', response.data['data'][0].avatar);
+        setPassword('');
+        setEmail('');
         navigation.navigate('Homes');
       })
       .catch(function (error) {
