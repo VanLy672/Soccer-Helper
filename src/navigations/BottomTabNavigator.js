@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import PitchStack from './PitchStack';
 import Post from '../screens/AllPost';
-import Settings from '../screens/Settings';
+import Profile from '../screens/Profile';
 import MatchStack from './MatchStack';
 import IconFeather from 'react-native-vector-icons/Feather';
 
@@ -25,7 +25,7 @@ const BottomTabNavigator = () => {
             iconName = 'plus';
           } else if (route.name === 'MatchStack') {
             iconName = 'plus';
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'Profile') {
             iconName = 'settings';
           }
 
@@ -37,8 +37,12 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Map" component={PitchStack} />
       <Tab.Screen name="Post" component={Post} />
-      <Tab.Screen name="MatchStack" component={MatchStack} options={{tabBarLabel: "Match"}}/>
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen
+        name="MatchStack"
+        component={MatchStack}
+        options={{tabBarLabel: 'Match'}}
+      />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
