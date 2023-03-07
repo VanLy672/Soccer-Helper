@@ -34,6 +34,12 @@ function DetailsScreen({route, navigation}) {
   }, []);
   console.log(reviewPitch);
 
+  const openMaps = address => {
+    const formattedAddress = address.replace(/\s+/g, '+');
+    const url = `https://www.google.com/maps/search/?api=1&query=${formattedAddress}`;
+    Linking.openURL(url);
+  };
+
   return (
     <View style={PitchDetailStyles.container}>
       <View style={PitchDetailStyles.viewImage}>
@@ -55,10 +61,12 @@ function DetailsScreen({route, navigation}) {
             <IconOcticons name="calendar" size={20} color="black" />
             <Text style={PitchDetailStyles.text}>Book</Text>
           </View>
-          <View style={PitchDetailStyles.icon}>
-            <IconOcticons name="location" size={20} color="black" />
-            <Text style={PitchDetailStyles.text}>Location</Text>
-          </View>
+          <TouchableOpacity onPress={() => openMaps(address)}>
+            <View style={PitchDetailStyles.icon}>
+              <IconOcticons name="location" size={20} color="black" />
+              <Text style={PitchDetailStyles.text}>Location</Text>
+            </View>
+          </TouchableOpacity>
           <View style={PitchDetailStyles.icon}>
             <IconOcticons name="share-android" size={20} color="black" />
             <Text style={PitchDetailStyles.text}>Share</Text>
