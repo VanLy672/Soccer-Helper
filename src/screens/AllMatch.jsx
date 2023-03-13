@@ -1,20 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, StyleSheet, Text} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {View, FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Match from '../components/Match';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useIsFocused} from '@react-navigation/native';
+import AllMatchStyles from '../styles/AllMatchStyles';
 const AllMatch = () => {
   const [allBookings, setAllBooking] = useState([]);
   const [userId, setUserId] = useState('');
+
   const navigation = useNavigation();
-  const getAllBooking = () => {
-    axios
+  const isFocused = useIsFocused();
+
+const getAllBooking = useCallback(async () => {
+  try {
+    const userId = await AsyncStorage.getItem('User_id');
+    console.log(userId);
+    const response = await axios
       .get(
         'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/allbookings',
         {
-          user_id: userId,
+          params: {user_id: userId},
         },
       )
       .then(function (response) {
@@ -24,13 +30,15 @@ const AllMatch = () => {
       .catch(function (error) {
         console.log(error);
       });
-  };
-  useEffect(() => {
-    AsyncStorage.getItem('User_id').then(result => {
-      setUserId(result);
-    });
-    getAllBooking();
-  }, []);
+  } catch (error) {
+    console.log(error);
+  }
+}, []);
+
+useEffect(() => {
+  getAllBooking();
+}, [getAllBooking, isFocused]);
+
   const renderItem = ({item}) => (
     <Match
       id={item.id}
@@ -45,33 +53,25 @@ const AllMatch = () => {
   );
 
   return (
-    <>
-      <View style={styles.viewbutton}>
-        <Text
-          name="plus"
-          style={styles.button_plus}
-          onPress={() => {
-            navigation.navigate('Booking');
-          }}>
-          create Match
+    <View style={AllMatchStyles.container}>
+      <TouchableOpacity
+        style={AllMatchStyles.btnCreate}
+        onPress={() => {
+          navigation.navigate('Booking');
+        }}>
+        <Text style={AllMatchStyles.btnText}>
+          Create Match
         </Text>
-      </View>
-      <View>
+      </TouchableOpacity>
+      <View style={AllMatchStyles.listMatch}>
         <FlatList
           data={allBookings}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
       </View>
-    </>
+    </View>
   );
 };
-const styles = StyleSheet.create({
-  button_plus: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    marginTop: 100,
-    marginLeft: 100,
-  },
-});
+
 export default AllMatch;
