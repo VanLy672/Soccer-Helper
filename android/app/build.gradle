@@ -95,6 +95,7 @@ android {
 
     namespace "com.soccerhelper"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.soccerhelper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
