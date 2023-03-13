@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import PitchStack from './PitchStack';
+import PostStack from './PostStack';
 import Post from '../screens/AllPost';
 import Profile from '../screens/Profile';
 import MatchStack from './MatchStack';
@@ -36,7 +37,7 @@ const BottomTabNavigator = () => {
       })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Map" component={PitchStack} />
-      <Tab.Screen name="Post" component={Post} />
+      <Tab.Screen name="Post" component={PostStack} />
       <Tab.Screen
         name="MatchStack"
         component={MatchStack}
