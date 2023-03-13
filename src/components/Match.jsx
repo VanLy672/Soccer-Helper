@@ -27,15 +27,17 @@ const Match = ({
           description: description,
         });
       }}>
-      <View style={styles.card}>
-        <View style={styles.avatarContainer}>
-          <Image source={{uri: avatar}} style={styles.avatar} />
-          <Text style={styles.username}>{namepitch}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.stadiumName}>{fullname}</Text>
-          <Text style={styles.startTime}>{day}</Text>
-          <Text style={styles.duration}>{contact} </Text>
+      <View style={styles.container}>
+        <View style={styles.card}>
+          <View style={styles.avatarContainer}>
+            <Image source={{uri: avatar}} style={styles.avatar} />
+            <Text style={styles.username}>{namepitch}</Text>
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.stadiumName}>{fullname}</Text>
+            <Text style={styles.startTime}>{day}</Text>
+            <Text style={styles.duration}>{contact}</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -43,10 +45,24 @@ const Match = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    padding: 16,
     margin: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
