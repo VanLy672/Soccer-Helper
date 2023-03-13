@@ -3,7 +3,7 @@ import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MyMatches = ({id_user,avatar, fullname}) => {
+const MyMatches = ({id_user,avatar, fullname, count}) => {
   const [matches, setMatches] = useState([]);
   const [userId, setUser_id] = useState(null);
   useEffect(() => {
@@ -33,27 +33,27 @@ const MyMatches = ({id_user,avatar, fullname}) => {
       .catch(error => {
         console.log(error.errors);
       });
-  }, [userId]);
+  }, [userId, count]);
 
   const renderItem = ({item}) => {
     return (
       <View style={styles.card}>
         <View style={styles.row}>
           <View style={styles.team}>
-            <Image source={{uri: avatar}} style={styles.avatar} />
-            <Text style={styles.fullname}>{fullname}</Text>
+            <Image source={{uri: item.away_avatar}} style={styles.avatar} />
+            <Text style={styles.fullname}>{item.away_fullname}</Text>
           </View>
           <View style={styles.pitch}>
             <Image source={{uri: item.image}} style={styles.image} />
           </View>
           <View style={styles.team}>
-            <Image source={{uri: item.away_avatar}} style={styles.avatar} />
-            <Text style={styles.fullname}>{item.away_fullname}</Text>
+            <Image source={{uri: item.avatar}} style={styles.avatar} />
+            <Text style={styles.fullname}>{item.fullname}</Text>
           </View>
         </View>
         <View style={styles.info}>
           <Text style={styles.name}>{item.namepitch}</Text>
-          <Text style={styles.time}>{item.day + ' - ' + item.time}</Text>
+          <Text style={styles.time}>{item.day + item.time + 'Phút'}</Text>
         </View>
       </View>
     );
