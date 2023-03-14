@@ -1,14 +1,45 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import BookingDetailStyles from '../styles/BookingDetailStyles';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const BookingDetail = ({route}) => {
   const {id, fullname, namepitch, avatar, day, time, contact, description} =
     route.params;
-
+  const [count, setCount] = useState(0);
   const navigation = useNavigation();
+
+  const Mapping = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('User_id');
+      const response = await axios
+        .post(
+          'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/matchSocer',
+          {
+            booking_id: id,
+            user_id_away: userId,
+          },
+        )
+        .then(function (response) {
+          console.log(response.data['message']);
+          Alert.alert('map thành công');
+          setCount(count + 1);
+          navigation.navigate('Profile', {
+            count: count + 1,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+          Alert.alert('map thất bại');
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <View style={BookingDetailStyles.container}>
@@ -42,6 +73,9 @@ const BookingDetail = ({route}) => {
         <Text style={BookingDetailStyles.fieldLabel}>Mô tả: </Text>
         <Text style={BookingDetailStyles.fieldValue}>{description}</Text>
       </View>
+      <TouchableOpacity style={BookingDetailStyles.button} onPress={Mapping}>
+        <Text style={BookingDetailStyles.buttonText}>Map trận đấu</Text>
+      </TouchableOpacity>
     </View>
   );
 };
