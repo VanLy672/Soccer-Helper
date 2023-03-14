@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList} from 'react-native';
+import {Text, FlatList} from 'react-native';
 import Post from '../components/Post';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-const PostList = () => {
+const PostList = ({route}) => {
   const [posts, setPosts] = useState([]);
+  const count = route.params || 0;
+  const navigation = useNavigation();
   const getAllPost = () => {
     axios
       .get(
@@ -30,8 +33,20 @@ const PostList = () => {
   );
   useEffect(() => {
     getAllPost();
-  }, []);
-  return <FlatList data={posts} renderItem={renderItem} />;
+  }, [count]);
+  return (
+    <>
+    <Text style={{ opacity: 0.5 }} onPress={()=>{
+      navigation.navigate("PostForm")
+
+    }}>Đăng bài để giao lưu</Text>
+     <FlatList
+      data={posts.reverse()}
+      renderItem={renderItem}
+      
+    />
+    </>
+  );
 };
 
 export default PostList;
