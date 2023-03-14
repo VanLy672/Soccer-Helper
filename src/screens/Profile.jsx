@@ -1,38 +1,3 @@
-// import { StyleSheet, Text, View, Button } from "react-native";
-// import React, {useState} from "react";
-// import {useNavigation} from '@react-navigation/native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// const Settings = () => {
-//   const navigation = useNavigation();
-
-//   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-//   const handleLogout = () => {
-//     setIsLoggedIn(false);
-//     navigation.navigate('Login');
-//     AsyncStorage.clear();
-//   };
-
-//   return (
-//     <View>
-//       {isLoggedIn ? (
-//         <>
-//           <Text>You are logged in!</Text>
-//           <Button title="Logout" onPress={handleLogout} />
-//         </>
-//       ) : (
-//         <Text>You are logged out!</Text>
-//       )}
-//     </View>
-//   );
-
-// };
-
-// export default Settings;
-
-// const styles = StyleSheet.create({});
-
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {Avatar, Icon, Input, Button} from 'react-native-elements';
@@ -41,7 +6,7 @@ import MyMatches from '../components/MyMatches';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Settings = () => {
+const Settings = ({route}) => {
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -60,24 +25,18 @@ const Settings = () => {
   const [tempFullName, setTempFullName] = useState('');
   const [tempPhoneNumber, settempPhoneNumber] = useState('');
   const [tempEmail, settempEmail] = useState('');
+  const count = route.params || 10;
   useEffect(() => {
-    // Get user_id from Async Storage
-    AsyncStorage.getItem('User_id')
-      .then(id => {
+    const fetchData = async () => {
+      try {
+        const id = await AsyncStorage.getItem('User_id');
         setUser_id(id);
         console.log(id);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-  useEffect(() => {
-    axios
-      .post(
-        'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/user',
-        {user_id},
-      )
-      .then(response => {
+
+        const response = await axios.post(
+          'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/user',
+          {user_id: id},
+        );
         const data = response.data['data'];
         setEmail(data.email);
         setFullname(data.fullname);
@@ -86,9 +45,13 @@ const Settings = () => {
         settempEmail(data.email);
         setTempFullName(data.fullname);
         settempPhoneNumber(data.phonenumber);
-      })
-      .catch(error => console.log(error));
-  }, [user_id]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [count]);
   const handleSubmit = () => {
     console.log(tempEmail);
     console.log(tempFullName);
@@ -195,7 +158,7 @@ const Settings = () => {
         <View>
           <Text>Trận đấu đang chờ</Text>
           {avatar && (
-            <MyMatches avatar={avatar} fullname={fullname} id_user={user_id} />
+            <MyMatches avatar={avatar} fullname={fullname} id_user={user_id} count = {count} />
           )}
         </View>
       </View>
