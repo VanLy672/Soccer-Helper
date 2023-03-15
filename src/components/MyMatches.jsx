@@ -47,13 +47,13 @@ const MyMatches = ({id_user,avatar, fullname, count}) => {
             <Image source={{uri: item.image}} style={styles.image} />
           </View>
           <View style={styles.team}>
-            <Image source={{uri: item.avatar}} style={styles.avatar} />
             <Text style={styles.fullname}>{item.fullname}</Text>
+            <Image source={{uri: item.avatar}} style={styles.avatar} />
           </View>
         </View>
         <View style={styles.info}>
           <Text style={styles.name}>{item.namepitch}</Text>
-          <Text style={styles.time}>{item.day + item.time + 'Phút'}</Text>
+          <Text style={styles.time}>{item.day + ' ' + item.time + ' Phút'}</Text>
         </View>
       </View>
     );
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 25,
-    marginRight: 10,
+    margin: 10,
   },
   fullname: {
     fontSize: 13,
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     maxWidth: 50,
   },
   pitch: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderRadius: 40,
     borderWidth: 1,
     borderColor: '#999999',
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     borderRadius: 30,
   },
   info: {
