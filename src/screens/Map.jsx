@@ -56,7 +56,15 @@ const Pitchs = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={MapStyles.container}>
-      <MapView style={MapStyles.map} />
+      <MapView
+        style={MapStyles.map}
+        initialRegion={{
+          latitude: 16.047079,
+          longitude: 108.20623,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
       <TextInput
         style={MapStyles.touchableOpacityContainer}
         placeholder="Search Pitch"
