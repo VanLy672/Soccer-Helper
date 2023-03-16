@@ -8,10 +8,13 @@ import {
   Image,
   TextInput,
   Alert,
+  TouchableOpacity
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import PostFormStyles from '../styles/PostFormStyles';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 
 const PostForm = () => {
   const [user_id, setUser_id] = useState(null);
@@ -114,71 +117,53 @@ const PostForm = () => {
     }
   };
 
+  const cancelSelectImage = () => {
+    setImage({uri: ''});
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Nội dung</Text>
+    <View style={PostFormStyles.container}>
+      <TouchableOpacity
+        style={PostFormStyles.buttonBack}
+        onPress={() => navigation.goBack()}>
+        <IconIonicons name="arrow-back" size={27} color="white" />
+      </TouchableOpacity>
+      <Text style={PostFormStyles.label}>Create Post</Text>
       <TextInput
-        style={styles.input}
+        style={PostFormStyles.input}
         multiline={true}
         onChangeText={text => setContent(text)}
         value={content}
+        placeholder="Write something here."
       />
 
       {image.uri !== '' && (
-        <Image source={{uri: image.uri}} style={styles.image} />
+        <View style={PostFormStyles.imageContainer}>
+          <TouchableOpacity
+            style={{alignSelf: 'flex-end'}}
+            onPress={cancelSelectImage}>
+            <IconIonicons name="close" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
       )}
-      <Button
-        title="Select Image"
-        color="#FF6F61"
-        onPress={selectImage}
-        style={styles.button}
-      />
-      <Button
-        title="Post"
-        color="#FF6F61"
-        onPress={handlePress}
-        style={styles.post}
-      />
+
+      {image.uri !== '' && (
+        <View style={PostFormStyles.imageContainer}>
+          <Image source={{uri: image.uri}} style={PostFormStyles.image} />
+        </View>
+      )}
+      <View style={PostFormStyles.buttonContainer}>
+        <TouchableOpacity onPress={selectImage} style={PostFormStyles.button}>
+          <Text style={PostFormStyles.title}>
+            <IconIonicons name="image" size={24} color="white" />
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handlePress} style={PostFormStyles.button}>
+          <Text style={PostFormStyles.title}>Post</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  input: {
-    height: 80,
-    borderWidth: 1,
-    borderColor: '#BDBDBD',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginBottom: 20,
-  },
-  button: {
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 10,
-    backgroundColor: '#FF6F61',
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  },
-  selectImage: {
-    marginBottom: 20,
-  },
-  post: {
-    position: 'absolute',
-    top: -10,
-  },
-});
 
 export default PostForm;
