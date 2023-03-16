@@ -25,7 +25,7 @@ const BottomTabNavigator = () => {
           } else if (route.name === 'Post') {
             iconName = 'plus';
           } else if (route.name === 'MatchStack') {
-            iconName = 'plus';
+            iconName = 'menu';
           } else if (route.name === 'Profile') {
             iconName = 'settings';
           }
