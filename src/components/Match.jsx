@@ -31,10 +31,10 @@ const Match = ({
         <View style={styles.card}>
           <View style={styles.avatarContainer}>
             <Image source={{uri: avatar}} style={styles.avatar} />
-            <Text style={styles.username}>Pitch: {namepitch}</Text>
+            <Text style={styles.userName}>{fullname}</Text>
           </View>
           <View style={styles.detailsContainer}>
-            <Text style={styles.stadiumName}>{fullname}</Text>
+            <Text style={styles.stadiumName}>Pitch: {namepitch}</Text>
             <Text style={styles.startTime}>{day}</Text>
             <Text style={styles.duration}>{time}'</Text>
           </View>
@@ -77,15 +77,16 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: 8,
   },
-  username: {
+  userName: {
     fontSize: 16,
     fontWeight: 'bold',
+    width: '40%',
   },
   detailsContainer: {
     alignItems: 'flex-end',
   },
   stadiumName: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   startTime: {
