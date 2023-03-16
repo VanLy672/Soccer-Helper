@@ -27,7 +27,7 @@ export default BookingDetailStyles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
   },
-    buttonBack: {
+  buttonBack: {
     backgroundColor: '#82CD47',
     width: '15%',
     padding: 7,
@@ -37,5 +37,21 @@ export default BookingDetailStyles = StyleSheet.create({
     margin: 7,
     right: 20,
     bottom: 20,
+  },
+  btnContainer: {
+    alignItems: 'center',
+  },
+  btnMap: {
+    backgroundColor: '#82CD47',
+    borderRadius: 5,
+    marginVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40%',
+    height: 50,
+  },
+  btnText: {
+    fontSize: 17,
+    color: 'white',
   },
 });
