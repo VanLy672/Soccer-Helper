@@ -31,12 +31,12 @@ const Match = ({
         <View style={styles.card}>
           <View style={styles.avatarContainer}>
             <Image source={{uri: avatar}} style={styles.avatar} />
-            <Text style={styles.username}>{namepitch}</Text>
+            <Text style={styles.username}>Pitch: {namepitch}</Text>
           </View>
           <View style={styles.detailsContainer}>
             <Text style={styles.stadiumName}>{fullname}</Text>
             <Text style={styles.startTime}>{day}</Text>
-            <Text style={styles.duration}>{contact}</Text>
+            <Text style={styles.duration}>{time}'</Text>
           </View>
         </View>
       </View>
