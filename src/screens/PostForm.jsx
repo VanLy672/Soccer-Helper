@@ -64,6 +64,11 @@ const PostForm = () => {
     } catch (error) {}
   };
   const handlePress = () => {
+    if (content.trim() === '') {
+      Alert.alert('','Write something...');
+      return;
+    }
+
     if (image.uri === '') {
       axios
         .post(
