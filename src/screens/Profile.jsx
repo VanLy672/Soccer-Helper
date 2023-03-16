@@ -88,7 +88,10 @@ const Settings = ({route}) => {
     <>
       <View style={{flex: 1, padding: 20}}>
         <View style={{alignItems: 'center', marginBottom: 20}}>
-          {avatar && <Avatar size="large" rounded source={{uri: avatar}} />}
+          <View
+            style={{borderWidth: 5, borderRadius: 50, borderColor: 'white'}}>
+            {avatar && <Avatar size="large" rounded source={{uri: avatar}} />}
+          </View>
           <Text style={{marginTop: 10, fontSize: 20, fontWeight: 'bold'}}>
             {fullname}
           </Text>
@@ -155,10 +158,17 @@ const Settings = ({route}) => {
             </View>
           </View>
         )}
-        <View>
-          <Text>Trận đấu đang chờ</Text>
+        <Text style={{margin: 10, fontWeight: 'bold', fontSize: 20}}>
+          Matched matches
+        </Text>
+        <View style={{height: '64%'}}>
           {avatar && (
-            <MyMatches avatar={avatar} fullname={fullname} id_user={user_id} count = {count} />
+            <MyMatches
+              avatar={avatar}
+              fullname={fullname}
+              id_user={user_id}
+              count={count}
+            />
           )}
         </View>
       </View>
