@@ -3,9 +3,10 @@ import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MyMatches = ({id_user,avatar, fullname, count}) => {
+const MyMatches = ({id_user, avatar, fullname, count}) => {
   const [matches, setMatches] = useState([]);
   const [userId, setUser_id] = useState(null);
+
   useEffect(() => {
     // Get user_id from Async Storage
     AsyncStorage.getItem('User_id')
@@ -16,9 +17,9 @@ const MyMatches = ({id_user,avatar, fullname, count}) => {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
     // Call API to get matches data
-
     axios
       .post(
         'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/showMatch',
@@ -28,7 +29,9 @@ const MyMatches = ({id_user,avatar, fullname, count}) => {
       )
       .then(response => {
         console.log(response.data['data']);
-        setMatches(response.data['data']);
+        // Reverse the order of the matches array
+        const reversedMatches = response.data['data'].reverse();
+        setMatches(reversedMatches);
       })
       .catch(error => {
         console.log(error.errors);
@@ -53,7 +56,7 @@ const MyMatches = ({id_user,avatar, fullname, count}) => {
         </View>
         <View style={styles.info}>
           <Text style={styles.name}>{item.namepitch}</Text>
-          <Text style={styles.time}>{item.day + ' ' + item.time + ' Phút'}</Text>
+          <Text style={styles.time}>{item.day + ' - ' + item.time + "'"}</Text>
         </View>
       </View>
     );
@@ -127,7 +130,6 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 14,
     color: '#999999',
-    marginLeft: 20,
   },
 });
 
