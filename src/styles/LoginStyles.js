@@ -60,4 +60,8 @@ export default LoginStyles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF',
   },
+  errorMessage: {
+    color: 'red',
+    marginTop: 5,
+  },
 });
