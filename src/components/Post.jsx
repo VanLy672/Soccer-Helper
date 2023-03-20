@@ -1,7 +1,26 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 const Post = ({avatar, username, content, image}) => {
+
+  const [liked, setLiked] = useState(false);
+  const [smiled, setSmiled] = useState(false);
+
+  const handleLikePress = () => {
+    setLiked(!liked);
+    if (smiled) {
+      setSmiled(false);
+    }
+  };
+
+  const handleSmilePress = () => {
+    setSmiled(!smiled);
+    if (liked) {
+      setLiked(false);
+    }
+  };
+
   if (image === 'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/') {
     return (
       <View style={styles.container}>
@@ -11,6 +30,19 @@ const Post = ({avatar, username, content, image}) => {
         </View>
         <View style={styles.content}>
           <Text>{content}</Text>
+        </View>
+        <View style={styles.icons}>
+          <TouchableOpacity onPress={handleLikePress}>
+            <Icon
+              name="heart"
+              size={20}
+              style={{marginRight: 10}}
+              color={liked ? 'red' : '#555'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSmilePress}>
+            <Icon name="smile" size={20} color={smiled ? 'gold' : '#555'} />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -28,6 +60,19 @@ const Post = ({avatar, username, content, image}) => {
               <Image source={{uri: image}} style={styles.image} />
             </View>
           )}
+        </View>
+        <View style={styles.icons}>
+          <TouchableOpacity onPress={handleLikePress}>
+            <Icon
+              name="heart"
+              size={20}
+              style={{marginRight: 10}}
+              color={liked ? 'red' : '#555'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleSmilePress}>
+            <Icon name="smile" size={20} color={smiled ? 'gold' : '#555'} />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -74,6 +119,13 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginTop: 10,
     marginBottom: 10,
+  },
+  icons: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  icon: {
+    marginLeft: 10,
   },
 });
 
