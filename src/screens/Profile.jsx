@@ -5,8 +5,16 @@ import axios from 'axios';
 import MyMatches from '../components/MyMatches';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modal from 'react-native-modal';
 
 const Settings = ({route}) => {
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   const navigation = useNavigation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -31,7 +39,6 @@ const Settings = ({route}) => {
       try {
         const id = await AsyncStorage.getItem('User_id');
         setUser_id(id);
-        console.log(id);
 
         const response = await axios.post(
           'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/user',
@@ -53,10 +60,6 @@ const Settings = ({route}) => {
     fetchData();
   }, [count]);
   const handleSubmit = () => {
-    console.log(tempEmail);
-    console.log(tempFullName);
-    console.log(tempPhoneNumber);
-    console.log(user_id);
     setIsEditing(false);
     axios
       .post(
@@ -107,19 +110,72 @@ const Settings = ({route}) => {
           <Button
             title={isEditing ? 'Information' : 'Edit Profile'}
             buttonStyle={{
-              backgroundColor: isEditing ? '#8b0000' : '#4285F4',
+              backgroundColor: isEditing ? 'black' : '#4285F4',
               borderRadius: 10,
             }}
             containerStyle={{flex: 1, marginRight: isEditing ? 0 : 10}}
             onPress={() => setIsEditing(!isEditing)}
           />
           {!isEditing && (
-            <Button
-              title="Logout"
-              buttonStyle={{backgroundColor: '#EA4335', borderRadius: 10}}
-              containerStyle={{flex: 1, marginLeft: 10}}
-              onPress={handleLogout}
-            />
+            <>
+              <Button
+                title="Logout"
+                buttonStyle={{backgroundColor: '#EA4335', borderRadius: 10}}
+                containerStyle={{flex: 1, marginLeft: 10}}
+                onPress={toggleModal}
+              />
+              <Modal isVisible={isModalVisible}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      backgroundColor: 'white',
+                      padding: 20,
+                      borderRadius: 10,
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        marginBottom: 20,
+                      }}>
+                      Are you sure you want to logout?
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                      }}>
+                      <Button
+                        title="Cancel"
+                        buttonStyle={{
+                          backgroundColor: '#999999',
+                          borderRadius: 10,
+                        }}
+                        containerStyle={{flex: 1, marginRight: 5}}
+                        onPress={toggleModal}
+                      />
+                      <Button
+                        title="Confirm"
+                        buttonStyle={{
+                          backgroundColor: '#4285F4',
+                          borderRadius: 10,
+                        }}
+                        containerStyle={{flex: 1, marginLeft: 5}}
+                        onPress={() => {
+                          toggleModal();
+                          handleLogout();
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+            </>
           )}
         </View>
         {isEditing && (
