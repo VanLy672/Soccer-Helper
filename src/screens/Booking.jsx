@@ -74,7 +74,7 @@ export default function Booking({route}) {
       })
       .catch(function (error) {
         console.log(error);
-        Alert.alert('Loi');
+        Alert.alert('','Please fill in all fields.');
       });
   };
   const navigation = useNavigation();

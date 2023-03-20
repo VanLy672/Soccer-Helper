@@ -25,7 +25,10 @@ const BookingDetail = ({route}) => {
         )
         .then(function (response) {
           console.log(response.data['message']);
-          Alert.alert('map thành công');
+          Alert.alert(
+            'Matched successfully',
+            'Congratulations, you have successfully matched the match',
+          );
           setCount(count + 1);
           navigation.navigate('Profile', {
             count: count + 1,
@@ -48,34 +51,38 @@ const BookingDetail = ({route}) => {
         onPress={() => navigation.goBack()}>
         <IconIonicons name="arrow-back" size={27} color="white" />
       </TouchableOpacity>
-      <Text style={BookingDetailStyles.title}>Thông tin trận đấu đang chờ</Text>
+      <Text style={BookingDetailStyles.title}>Match information</Text>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Tên người dùng: </Text>
+        <Text style={BookingDetailStyles.fieldLabel}>User: </Text>
         <Text style={BookingDetailStyles.fieldValue}>{fullname}</Text>
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Tên sân bóng: </Text>
+        <Text style={BookingDetailStyles.fieldLabel}>Pitch: </Text>
         <Text style={BookingDetailStyles.fieldValue}>{namepitch}</Text>
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Thời gian bắt đầu: </Text>
+        <Text style={BookingDetailStyles.fieldLabel}>Match day: </Text>
         <Text style={BookingDetailStyles.fieldValue}>{day}</Text>
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Thời gian thi đấu: </Text>
-        <Text style={BookingDetailStyles.fieldValue}> {time} phút</Text>
+        <Text style={BookingDetailStyles.fieldLabel}>Time: </Text>
+        <Text style={BookingDetailStyles.fieldValue}> {time}'</Text>
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Liên hệ: </Text>
+        <Text style={BookingDetailStyles.fieldLabel}>Contact: </Text>
         <Text style={BookingDetailStyles.fieldValue}>{contact}</Text>
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
-        <Text style={BookingDetailStyles.fieldLabel}>Mô tả: </Text>
-        <Text style={BookingDetailStyles.fieldValue}>{description}</Text>
+        <Text style={BookingDetailStyles.fieldLabel}>Describe: </Text>
+        <Text style={[BookingDetailStyles.fieldValue, {maxWidth: '70%'}]}>
+          {description}
+        </Text>
       </View>
-      <TouchableOpacity style={BookingDetailStyles.button} onPress={Mapping}>
-        <Text style={BookingDetailStyles.buttonText}>Map trận đấu</Text>
-      </TouchableOpacity>
+      <View style={BookingDetailStyles.btnContainer}>
+        <TouchableOpacity style={BookingDetailStyles.btnMap} onPress={Mapping}>
+          <Text style={BookingDetailStyles.btnText}>Matching</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
