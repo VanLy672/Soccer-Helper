@@ -29,8 +29,6 @@ const ForgotPW = () => {
           newpassword: password,
         },
       );
-        console.log(response.data);
-        navigation.navigate('Login');
       return response.data;
     } catch (error) {
       throw error;
@@ -38,13 +36,32 @@ const ForgotPW = () => {
   };
 
   const handleForgotPW = async () => {
+    if (!email || !password) {
+      Alert.alert('Forgot Password Failed', 'Please enter your email and password.');
+      return;
+    }
+
     try {
-      await forgotPassword(email, password);
-      Alert.alert('Success', 'Your password has been updated.');
+      const data = await forgotPassword(email, password);
+      if(data['data']){
+        navigation.navigate('Login');
+        Alert.alert(
+          'Forgot Password Successfully',
+          'Your password has been updated.',
+        );
+      }
+      else{
+         Alert.alert(
+           'Forgot Password Failed',
+           "Email doesn't exist. Please enter the correct email.",
+         );
+      }
     } catch (error) {
       Alert.alert('Error', error.message);
     }
   };
+
+  
 
   return (
     <View style={ForgotPWStyles.container}>

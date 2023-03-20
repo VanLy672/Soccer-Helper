@@ -26,8 +26,13 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = async () => {
+    if (!fullName || !phoneNumber || !email || !password || !confirmPassword) {
+      Alert.alert('Register Failed', 'Please fill in all fields');
+      return;
+    }
+
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert('Register Failed', 'Passwords do not match');
       return;
     }
 

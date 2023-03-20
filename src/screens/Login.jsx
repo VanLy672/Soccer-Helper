@@ -20,27 +20,13 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
-  const validateInput = () => {
-    let isValid = true;
-    if (email === '') {
-      setEmailError('Please enter your email');
-      isValid = false;
-    } else {
-      setEmailError('');
-    }
-    if (password === '') {
-      setPasswordError('Please enter your password');
-      isValid = false;
-    } else {
-      setPasswordError('');
-    }
-    return isValid;
-  };
 
   const handleLogin = () => {
+    if (email === '' || password === '') {
+      Alert.alert('Login Failed', 'Please enter your email and password');
+      return;
+    }
+
     axios
       .post(
         'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/login',
@@ -60,12 +46,8 @@ const Login = () => {
       })
       .catch(function (error) {
         console.log(error);
-        Alert.alert(
-          'Login failed',
-          'Please check your email and password and try again',
-        );
       });
-  };  
+  };
 
   return (
     <View style={LoginStyles.container}>
@@ -87,8 +69,6 @@ const Login = () => {
           onChangeText={setEmail}
         />
       </View>
-      <Text style={LoginStyles.errorMessage}>{emailError}</Text>
-
       <View style={LoginStyles.formInput}>
         <IconFeather
           style={LoginStyles.icon}
@@ -104,16 +84,10 @@ const Login = () => {
           onChangeText={setPassword}
         />
       </View>
-      <Text style={LoginStyles.errorMessage}>{passwordError}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('ForgotPW')}>
         <Text style={LoginStyles.btnForgotPW}>Forgot your password?</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          if (validateInput()) {
-            handleLogin();
-          }
-        }}>
+      <TouchableOpacity onPress={handleLogin}>
         <Text style={LoginStyles.btnLogin}>
           Login
           <IconAntDesign name="arrowright" size={16} color="#ffffff" />
