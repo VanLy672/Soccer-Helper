@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Modal} from 'react-native';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import BookingDetailStyles from '../styles/BookingDetailStyles';
 import {useNavigation} from '@react-navigation/native';
@@ -11,6 +11,8 @@ const BookingDetail = ({route}) => {
     route.params;
   const [count, setCount] = useState(0);
   const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const Mapping = async () => {
     try {
@@ -45,7 +47,7 @@ const BookingDetail = ({route}) => {
 
 
   return (
-    <View style={BookingDetailStyles.container}>
+    <><View style={BookingDetailStyles.container}>
       <TouchableOpacity
         style={BookingDetailStyles.buttonBack}
         onPress={() => navigation.goBack()}>
@@ -74,16 +76,49 @@ const BookingDetail = ({route}) => {
       </View>
       <View style={BookingDetailStyles.fieldContainer}>
         <Text style={BookingDetailStyles.fieldLabel}>Describe: </Text>
-        <Text style={[BookingDetailStyles.fieldValue, {maxWidth: '70%'}]}>
+        <Text style={[BookingDetailStyles.fieldValue, { maxWidth: '70%' }]}>
           {description}
         </Text>
       </View>
       <View style={BookingDetailStyles.btnContainer}>
-        <TouchableOpacity style={BookingDetailStyles.btnMap} onPress={Mapping}>
+        <TouchableOpacity
+          style={BookingDetailStyles.btnMap}
+          onPress={() => setModalVisible(true)}>
           <Text style={BookingDetailStyles.btnText}>Matching</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View><Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      } }
+    >
+        <View style={BookingDetailStyles.centeredView}>
+          <View style={BookingDetailStyles.modalView}>
+            <Text style={BookingDetailStyles.modalText}>Confirm matching?</Text>
+            <View style={BookingDetailStyles.modalButtons}>
+              <TouchableOpacity
+                style={[BookingDetailStyles.modalButton, BookingDetailStyles.cancelButton]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={BookingDetailStyles.buttonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[BookingDetailStyles.modalButton, BookingDetailStyles.confirmButton]}
+                onPress={() => {
+                  Mapping();
+                  setModalVisible(!modalVisible);
+                } }
+              >
+                <Text style={BookingDetailStyles.buttonText}>Confirm</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal></>
   );
 };
 
