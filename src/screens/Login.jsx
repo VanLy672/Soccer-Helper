@@ -46,6 +46,7 @@ const Login = () => {
       })
       .catch(function (error) {
         console.log(error);
+        Alert.alert('Login Failed', 'Email or password is incorrect');
       });
   };
 

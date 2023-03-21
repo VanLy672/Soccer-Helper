@@ -100,6 +100,7 @@ const Register = () => {
         <TextInput
           style={RegisterStyles.textInput}
           placeholder="What’s your phone number?"
+          keyboardType="numeric"
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
         />

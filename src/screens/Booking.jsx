@@ -65,7 +65,7 @@ export default function Booking({route}) {
       )
       .then(function (response) {
         console.log(response.data['data']);
-        Alert.alert('Create Successfully');
+        Alert.alert('','Create Successfully');
         navigation.navigate('AllMatch');
         setContact('');
         setDescription('');
