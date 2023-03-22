@@ -147,6 +147,7 @@ export default function Booking({route}) {
           mode="date"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
+          minimumDate={new Date()}
           onChange={onDateSelected}
           value={bookingDate.value}
         />
@@ -162,6 +163,7 @@ export default function Booking({route}) {
           mode="time"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
+          minimumDate={new Date()}
           onChange={onDateHourSelected}
           value={bookingHour.value}
         />
@@ -201,7 +203,7 @@ export default function Booking({route}) {
         multiline={true}
       />
       <TouchableOpacity style={BookingStyles.button} onPress={handleSubmit}>
-        <Text style={BookingStyles.buttonText}>Submit</Text>
+        <Text style={BookingStyles.buttonText}>Create Match</Text>
       </TouchableOpacity>
     </View>
   );

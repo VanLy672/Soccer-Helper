@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   avatarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '50%',
   },
   avatar: {
     width: 50,
