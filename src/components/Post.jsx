@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 const Post = ({avatar, username, content, image}) => {
 
@@ -20,6 +21,18 @@ const Post = ({avatar, username, content, image}) => {
       setLiked(false);
     }
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleImagePress = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const images = [{url: image}];
 
   if (image === 'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/') {
     return (
@@ -56,9 +69,11 @@ const Post = ({avatar, username, content, image}) => {
         <View style={styles.content}>
           <Text>{content}</Text>
           {image && (
-            <View style={styles.imageContainer}>
-              <Image source={{uri: image}} style={styles.image} />
-            </View>
+            <TouchableOpacity onPress={handleImagePress}>
+              <View style={styles.imageContainer}>
+                <Image source={{uri: image}} style={styles.image} />
+              </View>
+            </TouchableOpacity>
           )}
         </View>
         <View style={styles.icons}>
@@ -74,6 +89,14 @@ const Post = ({avatar, username, content, image}) => {
             <Icon name="smile" size={20} color={smiled ? 'gold' : '#555'} />
           </TouchableOpacity>
         </View>
+        <Modal visible={isModalOpen} transparent={true}>
+          <ImageViewer
+            imageUrls={images}
+            onCancel={handleModalClose}
+            enableSwipeDown={true}
+            onSwipeDown={handleModalClose}
+          />
+        </Modal>
       </View>
     );
 };
@@ -113,12 +136,15 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 200,
-    marginTop: 10,
     borderRadius: 10,
   },
   imageContainer: {
     marginTop: 10,
     marginBottom: 10,
+    width: '100%',
+    backgroundColor: '#eee',
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   icons: {
     flexDirection: 'row',
