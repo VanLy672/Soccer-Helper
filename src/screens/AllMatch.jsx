@@ -15,21 +15,12 @@ const AllMatch = () => {
 const getAllBooking = useCallback(async () => {
   try {
     const userId = await AsyncStorage.getItem('User_id');
-    console.log(userId);
-    const response = await axios
-      .get(
-        'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/allbookings',
-        {
-          params: {user_id: userId},
-        },
-      )
-      .then(function (response) {
-        console.log(response.data['data']);
-        setAllBooking(response.data['data']);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const response = await axios.get(
+      'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/allbookings',
+      {params: {user_id: userId}},
+    );
+    const sortedBookings = response.data['data'].reverse();
+    setAllBooking(sortedBookings);
   } catch (error) {
     console.log(error);
   }
