@@ -1,11 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MyMatches = ({id_user, avatar, fullname, count}) => {
   const [matches, setMatches] = useState([]);
   const [userId, setUser_id] = useState(null);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     // Get user_id from Async Storage
@@ -38,6 +47,28 @@ const MyMatches = ({id_user, avatar, fullname, count}) => {
       });
   }, [userId, count]);
 
+const onRefresh = React.useCallback(() => {
+  setRefreshing(true);
+  axios
+    .post(
+      'http://ec2-13-250-122-122.ap-southeast-1.compute.amazonaws.com/api/showMatch',
+      {
+        user_id: id_user,
+      },
+    )
+    .then(response => {
+      console.log(response.data['data']);
+      // Reverse the order of the matches array
+      const reversedMatches = response.data['data'].reverse();
+      setMatches(reversedMatches);
+      setRefreshing(false);
+    })
+    .catch(error => {
+      console.log(error.errors);
+      setRefreshing(false);
+    });
+}, [id_user]);
+
   const renderItem = ({item}) => {
     return (
       <View style={styles.card}>
@@ -67,6 +98,9 @@ const MyMatches = ({id_user, avatar, fullname, count}) => {
       data={matches}
       renderItem={renderItem}
       keyExtractor={item => item.id}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     />
   );
 };
