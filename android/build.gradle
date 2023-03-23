@@ -19,3 +19,24 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
+
+allprojects {
+    repositories {
+        maven {
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
+        mavenCentral {
+            content {
+                excludeGroup "com.facebook.react"
+            }
+        }
+        mavenLocal()
+        jcenter()
+        google()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://www.jitpack.io' }
+    }
+}
